@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donors List</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .donors-container {
+            max-width: 1200px;
+            margin: 80px auto 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #ff4d4d;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .donors-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .donors-table th, 
+        .donors-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .donors-table th {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .donors-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .blood-group {
+            font-weight: bold;
+            color: #ff4d4d;
+        }
+
+        .no-donors {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        /* Responsive table */
+        @media screen and (max-width: 768px) {
+            .donors-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="donors-container">
+        <h1>Blood Donors Directory</h1>
+        
+        {% if donors %}
+        <table class="donors-table">
+            <thead>
+                <tr>
+                    <th>Blood Group</th>
+                    <th>City</th>
+                    <th>Gender</th>
+                    <th>Contact Number</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donor in donors %}
+                {% if donor.is_active_donor %}
+                <tr>
+                    <td class="blood-group">{{ donor.blood_group }}</td>
+                    <td>{{ donor.city }}</td>
+                    <td>{{ donor.gender }}</td>
+                    <td>{{ donor.contact_number }}</td>
+                    <td>{{ donor.email_address }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="no-donors">
+            <p>No donors registered yet.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html> 

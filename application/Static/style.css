@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f4f4f4;
+}
+
+.container{
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background: #fff;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.form-box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: #fff;
+    overflow-y: auto;
+}
+
+.form-box h1{
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 0;
+}
+
+.input-box{
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input-box input, .input-box select{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    outline: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.input-box i{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.submit-container {
+    position: relative;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.btn{
+    width: 100%;
+    padding: 10px;
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover{
+    background: #cc0000;
+}
+
+.toggle-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #ff4d4d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggle-panel{
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+}
+
+.toggle-panel h1{
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.toggle-panel p{
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.alert{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+.alert-success{
+    background-color: #2ecc71;
+}
+
+.alert-danger{
+    background-color: #e74c3c;
+}
+
+.alert-info{
+    background-color: #3498db;
+}
+
+.profile-btn {
+    background-color: #9b59b6;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-btn:hover {
+    background-color: #8e44ad;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.donor-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.donor-btn.activate {
+    background-color: #2ecc71;
+}
+
+.donor-btn.activate:hover {
+    background-color: #27ae60;
+}
+
+.donor-btn.deactivate {
+    background-color: #e74c3c;
+}
+
+.donor-btn.deactivate:hover {
+    background-color: #c0392b;
+}
+
+/* Add styles for flash messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+@media screen and (max-width: 650px){
+    .container{ height: calc(100vh - 40px); }
+
+    .form-box{
+        bottom: 0;
+        width: 100%;
+        height: 70%;
+    }
+
+        .container.active .form-box{
+            right: 0;
+            bottom: 30%;
+        }
+
+    .toggle-box::before{
+        left: 0;
+        top: -270%;
+        width: 100%;
+        height: 300%;
+        border-radius: 20vw;
+    }
+
+        .container.active .toggle-box::before{
+            left: 0;
+            top: 70%;
+        }
+
+        .container.active .toggle-panel.toggle-left{
+            left: 0;
+            top: -30%;
+        }
+
+    .toggle-panel{ 
+        width: 100%;
+        height: 30%;
+    }
+        .toggle-panel.toggle-left{ top: 0; }
+        .toggle-panel.toggle-right{
+            right: 0;
+            bottom: -30%;
+        }
+
+            .container.active .toggle-panel.toggle-right{ bottom: 0; }
+}
+
+@media screen and (max-width: 400px){
+    .form-box { padding: 20px; }
+
+    .toggle-panel h1{font-size: 30px; }
+}
+

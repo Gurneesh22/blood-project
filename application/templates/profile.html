@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #ff4d4d;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .value {
+            color: #333;
+        }
+
+        .blood-group {
+            color: #ff4d4d;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .back-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 10px 20px;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #cc0000;
+        }
+
+        .donor-status {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .donor-status h2 {
+            color: #ff4d4d;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .status.active {
+            color: #2ecc71;
+        }
+
+        .status.inactive {
+            color: #e74c3c;
+        }
+
+        .last-donation {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .donor-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .donor-btn.activate {
+            background-color: #2ecc71;
+        }
+
+        .donor-btn.activate:hover {
+            background-color: #27ae60;
+        }
+
+        .donor-btn.deactivate {
+            background-color: #e74c3c;
+        }
+
+        .donor-btn.deactivate:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>My Profile</h1>
+        
+        <div class="profile-info">
+            <div class="label">Blood Group:</div>
+            <div class="value blood-group">{{ current_user.blood_group }}</div>
+            
+            <div class="label">Email:</div>
+            <div class="value">{{ current_user.email_address }}</div>
+            
+            <div class="label">City:</div>
+            <div class="value">{{ current_user.city }}</div>
+            
+            <div class="label">Gender:</div>
+            <div class="value">{{ current_user.gender }}</div>
+            
+            <div class="label">Contact Number:</div>
+            <div class="value">{{ current_user.contact_number }}</div>
+            
+            <div class="label">Date of Birth:</div>
+            <div class="value">{{ current_user.dob.strftime('%d-%m-%Y') }}</div>
+        </div>
+
+        <div class="donor-status">
+            <h2>Donor Status</h2>
+            {% if current_user.is_active_donor %}
+                <p class="status active">You are currently an active donor</p>
+                {% if current_user.last_donation_date %}
+                    <p class="last-donation">Last donation: {{ current_user.last_donation_date.strftime('%d-%m-%Y') }}</p>
+                {% endif %}
+            {% else %}
+                <p class="status inactive">You are not currently listed as a donor</p>
+            {% endif %}
+            
+            <form action="{{ url_for('toggle_donor_status') }}" method="GET">
+                <button type="submit" class="donor-btn {% if current_user.is_active_donor %}deactivate{% else %}activate{% endif %}">
+                    {% if current_user.is_active_donor %}
+                        Deactivate Donor Status
+                    {% else %}
+                        Activate Donor Status
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+
+        <a href="{{ url_for('home_page') }}" class="back-btn">Back to Home</a>
+    </div>
+</body>
+</html> 

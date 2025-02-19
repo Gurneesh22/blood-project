@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate The Blood</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 100px;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 0px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            position: fixed;
+            top: 75px;
+            width: 100%;
+            z-index: 1000;
+            padding: 10px 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px; /* Adds space between links */
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .auth-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn {
+            background-color: #3498db;
+        }
+
+        .login-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .signup-btn {
+            background-color: #2ecc71;
+        }
+
+        .signup-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .hero {
+            background-image: url('https://images.healthshots.com/healthshots/en/uploads/2022/06/14090406/blood-donor.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1,
+        .hero h2,
+        .search-box {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .hero h2 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .search-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .search-box select,
+        .search-box button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #cc0000;
+        }
+
+        .about {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-box img {
+            width: 100%;
+            height: 185px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .info-box h3 {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #ff4d4d;
+        }
+
+        .info-box p {
+            font-size: 1em;
+            padding: 0 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero h2 {
+                font-size: 1.5em;
+            }
+
+            .search-box select,
+            .search-box button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .about {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Indian Red Cross Society</h1>
+    </header>
+    <nav>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="{{ url_for('donate_page') }}">Donate</a>
+            <a href="{{ url_for('donors_page') }}">Donors</a>
+            <a href="#search">Search</a>
+            <a href="#about">About Us</a>
+        </div>
+        <div class="auth-buttons">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile_page') }}" class="auth-btn profile-btn">
+                    <i class='bx bxs-user'></i> My Profile
+                </a>
+                <a href="{{ url_for('logout_page') }}" class="auth-btn logout-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login_page') }}" class="auth-btn login-btn">Login</a>
+                <a href="{{ url_for('register_page') }}" class="auth-btn signup-btn">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <div class="hero">
+        <h1>Donate the blood, save the life</h1>
+        <h2>Search The Donors</h2>
+        <div class="search-box">
+            <select>
+                <option>-- Select City --</option>
+                <option>City 1</option>
+                <option>City 2</option>
+            </select>
+            <select>
+                <option>A+</option>
+                <option>B+</option>
+                <option>O+</option>
+                <option>A-</option>
+                <option>B-</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+            </select><br>
+            <button>Search</button>
+        </div>
+    </div>
+
+    <section class="about">
+        <div class="info-box">
+            <img src="https://thumbs.dreamstime.com/z/red-blood-drop-hand-isolated-white-background-donor-volunteer-vector-design-170893123.jpg" alt="Our Mission">
+            <h3>Our Mission</h3>
+            <p>To create a world where everyone has access to safe and life-saving blood donations.</p>
+        </div>
+        <div class="info-box">
+            <img src="https://cdn.vectorstock.com/i/2000v/78/39/blood-donation-vector-39797839.avif" alt="Why Donate Blood">
+            <h3>Why Donate Blood?</h3>
+            <p>Every 2 seconds, someone needs blood. Your donation can save lives and make a difference.</p>
+        </div>
+        <div class="info-box">
+            <img src="https://as2.ftcdn.net/jpg/02/21/38/43/1000_F_221384301_koiBmGmkX4Et7jNl3l8ricGWfbtl1V3c.jpg" alt="Who Can Donate?">
+            <h3>Who Can Donate?</h3>
+            <p>Healthy individuals aged 18-65 can donate blood. Help those in need today!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Contact Us: +91 9780240059 | indianredcross@irc.com</p>
+    </footer>
+</body>
+
+</html>
